@@ -3,18 +3,18 @@
 #include <snapshot.hpp>
 #include <vector>
 
-namespace gm
+namespace fwatch
 {
 class SnapshotComparator
 {
 public:
   struct Diff
   {
-    std::vector<std::filesystem::path> added;
-    std::vector<std::filesystem::path> modified;
-    std::vector<std::filesystem::path> deleted;
+    std::vector<std::string> added;
+    std::vector<std::string> modified;
+    std::vector<std::string> deleted;
   };
 
-  Diff compare(const Snapshot& old_snap, const Snapshot& new_snap);
+  Diff compare(Snapshot& old_snap, Snapshot& new_snap);
 };
-}  // namespace gm
+}  // namespace fwatch

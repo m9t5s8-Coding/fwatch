@@ -1,8 +1,8 @@
 #include <scanner.hpp>
 
-namespace gm
+namespace fwatch
 {
-std::vector<std::filesystem::path> Scanner::scan_directory(std::filesystem::path& root)
+std::vector<std::filesystem::path> Scanner::scan_directory(const std::filesystem::path& root)
 {
   std::vector<std::filesystem::path> files;
 
@@ -10,13 +10,18 @@ std::vector<std::filesystem::path> Scanner::scan_directory(std::filesystem::path
   {
     for (const auto& dir_entry : std::filesystem::recursive_directory_iterator(root))
     {
-      if (dir_entry.is_regular_file())
-      {
-        files.push_back(dir_entry.path());
-      }
+      if (!dir_entry.is_regular_file())
+        continue;
+
+      std::filesystem::path relative_path = std::filesystem::relative(dir_entry.path(), root);
+
+      if (relative_path.begin()->string() == ".fwatch")
+        continue;
+
+      files.push_back(relative_path);
     }
   }
 
   return files;
 }
-}  // namespace gm
+}  // namespace fwatch

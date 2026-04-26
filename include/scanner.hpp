@@ -2,11 +2,11 @@
 #include <filesystem>
 #include <vector>
 
-namespace gm
+namespace fwatch
 {
 class Scanner
 {
 public:
-  std::vector<std::filesystem::path> scan_directory(std::filesystem::path& root);
+  std::vector<std::filesystem::path> scan_directory(const std::filesystem::path& root);
 };
-}  // namespace gm
+}  // namespace fwatch

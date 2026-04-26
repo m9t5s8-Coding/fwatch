@@ -4,11 +4,12 @@
 #include <snapshot.hpp>
 #include <vector>
 
-namespace gm
+namespace fwatch
 {
 class SnapshotBuilder
 {
 public:
-  Snapshot build(const std::vector<std::filesystem::path>& files, Hasher& hasher);
+  Snapshot
+  build(const std::vector<std::filesystem::path>& files, Hasher& hasher, const std::string& root);
 };
-}  // namespace gm
+}  // namespace fwatch

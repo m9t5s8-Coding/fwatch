@@ -1,4 +1,4 @@
-#include <commands/status.hpp>
+#include <commands/record.hpp>
 #include <comparator.hpp>
 #include <hasher.hpp>
 #include <reporter.hpp>
@@ -8,7 +8,7 @@
 
 namespace fwatch
 {
-void StatusCommand::run(const std::vector<std::string>& args)
+void RecordCommand::run(const std::vector<std::string>& args)
 {
   std::filesystem::path root    = args.empty() ? "." : args.front();
   std::string           db_path = ".fwatch/hashes.db";
@@ -26,6 +26,8 @@ void StatusCommand::run(const std::vector<std::string>& args)
   auto new_snapshot = snapshot_builder.build(files, hasher, root);
 
   auto diff = comparator.compare(old_snapshot, new_snapshot);
-  reporter.report_status(diff);
+
+  new_snapshot.save(db_path);
+  reporter.report_record(diff, db_path);
 }
 }  // namespace fwatch
